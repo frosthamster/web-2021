@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    server_name _;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name _;
+
+    ssl_certificate /etc/nginx/ssl/${NGINX_SSL_CRT_NAME};
+    ssl_certificate_key /etc/nginx/ssl/${NGINX_SSL_KEY_NAME};
+    ssl_dhparam /etc/nginx/ssl/dh2048.pem;
+
+    ssl_protocols TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH:+AES256:-3DES:!NULL:!RC4";
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:50m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_ecdh_curve secp384r1;
+    add_header Strict-Transport-Security 'max-age=15768000';
+
+    location / {
+        alias /usr/share/nginx/html/web/;
+        try_files $uri $uri/ /index.html;
+    }
+}

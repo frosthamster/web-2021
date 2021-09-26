@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:1.21.3-alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./deploy/nginx/templates:/etc/nginx/templates:ro
+      - ./deploy/nginx/ssl:/etc/nginx/ssl:ro
+      - ./static:/usr/share/nginx/html/web:ro
+    environment:
+      - NGINX_SSL_CRT_NAME=${NGINX_SSL_CRT_NAME}
+      - NGINX_SSL_KEY_NAME=${NGINX_SSL_KEY_NAME}
