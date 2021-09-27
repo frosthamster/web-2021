@@ -12,9 +12,9 @@ server {
     ssl_certificate_key /etc/nginx/ssl/${NGINX_SSL_KEY_NAME};
     ssl_dhparam /etc/nginx/ssl/dh2048.pem;
 
-    ssl_protocols TLSv1.2;
+    ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
-    ssl_ciphers "EECDH+AES256:EDH+AES256:!aNULL";
+    ssl_ciphers "ECDH+AES256:ECDH+CHACHA20:!AESCCM:!SHA1:!aNULL";
     ssl_ecdh_curve secp384r1;
     ssl_session_tickets off;
     ssl_stapling on;
