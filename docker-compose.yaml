@@ -13,4 +13,5 @@ services:
       - ./static:/usr/share/nginx/html/web:ro
     environment:
       - NGINX_SSL_CRT_NAME=${NGINX_SSL_CRT_NAME}
+      - NGINX_SSL_CRT_CHAIN_NAME=${NGINX_SSL_CRT_CHAIN_NAME}
       - NGINX_SSL_KEY_NAME=${NGINX_SSL_KEY_NAME}

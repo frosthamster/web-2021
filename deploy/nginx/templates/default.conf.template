@@ -15,12 +15,14 @@ server {
     ssl_protocols TLSv1.2;
     ssl_prefer_server_ciphers on;
     ssl_ciphers "EECDH:+AES256:-3DES:!NULL:!RC4";
-    ssl_session_timeout 1d;
-    ssl_session_cache shared:SSL:50m;
+    ssl_ecdh_curve secp384r1;
     ssl_session_tickets off;
     ssl_stapling on;
-    ssl_ecdh_curve secp384r1;
-    add_header Strict-Transport-Security 'max-age=15768000';
+    ssl_stapling_verify on;
+    ssl_trusted_certificate /etc/nginx/ssl/${NGINX_SSL_CRT_CHAIN_NAME};
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:50m;
+    add_header Strict-Transport-Security 'max-age=15768000; includeSubDomains';
 
     location / {
         alias /usr/share/nginx/html/web/;
